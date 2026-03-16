@@ -1,0 +1,283 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home</title>
+
+<style>
+
+/* NAVBAR */
+
+body{
+margin:0;
+font-family:Arial;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#222;
+color:white;
+padding:15px 40px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+}
+
+
+/* SLIDESHOW */
+
+.slideshow{
+width:100%;
+height:100px;
+background:#ddd;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+
+/* ABOUT */
+
+.about{
+padding:80px 10%;
+background:#f4f4f4;
+height: 400px;
+}
+
+.about-container{
+display:flex;
+align-items:center;
+gap:50px;
+}
+
+.about-image img{
+width:400px;
+border-radius:10px;
+}
+
+.about-text{
+max-width:600px;
+}
+
+.about-text h2{
+font-size:36px;
+margin-bottom:20px;
+}
+
+.about-text p{
+font-size:18px;
+line-height:1.6;
+margin-bottom:15px;
+}
+
+/* CONTACT */
+
+.contact{
+padding:100px;
+text-align:center;
+
+}
+
+.contact-text h2{
+    text-align: center;
+    font-size:36px;
+}
+
+
+.cards{
+display:flex;
+justify-content:center;
+gap:30px;
+margin-top:30px;
+margin-bottom: 30px;
+}
+
+.card-link{
+text-decoration:none;
+color:inherit;
+}
+
+.card{
+background: linear-gradient(to right, #8bcdea, #dd92e7);
+padding:30px;
+width:220px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+transition:all 0.3s ease;
+cursor:pointer;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+
+/* FOOTER */
+
+footer{
+background:#222;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+.slideshow{
+width:100%;
+height:800px;
+overflow:hidden;
+position:relative;
+}
+
+.slide{
+width:100%;
+height:800px;
+object-fit:cover;
+display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<nav>
+<div>My Plant Store</div>
+<div>
+    {% if user.is_authenticated %}
+
+Welcome {{ user.username }}
+
+<a href="/logout/">Logout</a>
+
+{% else %}
+
+<a href="/login/">Login</a>
+<a href="/signup/">Signup</a>
+
+{% endif %}
+</div>
+<div>
+<a href="{% url 'index' %}">Home</a>
+<a href="{% url 'plant_list' %}">Store</a>
+</div>
+</nav>
+
+
+<div class="slideshow">
+
+<img src="{% static 'assets/wall1.webp' %}" class="slide">
+<img src="{% static 'assets/wall2.webp' %}" class="slide">
+<img src="{% static 'assets/wall4.webp' %}" class="slide">
+
+</div>
+
+<script>
+
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+
+let slides = document.getElementsByClassName("slide");
+
+for (let i = 0; i < slides.length; i++) {
+slides[i].style.display = "none";
+}
+
+slideIndex++;
+
+if (slideIndex > slides.length) {
+slideIndex = 1;
+}
+
+slides[slideIndex-1].style.display = "block";
+
+setTimeout(showSlides, 3000);
+
+}
+
+</script>
+
+
+<div class="about">
+
+<div class="about-container">
+
+<div class="about-image">
+<img src="{% static 'assets/logo.webp' %}" alt="Plant Store">
+</div>
+
+<div class="about-text">
+<h2>About Us</h2>
+
+<p>
+Welcome to our plant store! We are passionate about bringing nature closer to
+people by providing a wide variety of healthy, beautiful plants for homes,
+offices, and gardens.
+</p>
+
+<p>
+Our mission is to help you create a greener environment and a healthier
+lifestyle. From indoor decorative plants to outdoor garden plants,
+we carefully select and nurture each plant to ensure the best quality.
+</p>
+
+<p>
+Whether you are a beginner plant lover or an experienced gardener,
+our store offers the perfect plants along with guidance on plant care
+and maintenance.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="contact-text h2">
+<h2>Contact</h2>
+
+<div class="cards">
+
+<a href="https://wa.me/919876543210" target="_blank" class="card-link">
+<div class="card">
+<h3>WhatsApp</h3>
+<p>Chat with us</p>
+</div>
+</a>
+
+<a href="mailto:plants@example.com" class="card-link">
+<div class="card">
+<h3>Email</h3>
+<p>plants@example.com</p>
+</div>
+</a>
+
+<a href="https://www.plantstore.com" target="_blank" class="card-link">
+<div class="card">
+<h3>Website</h3>
+<p>www.plantstore.com</p>
+</div>
+</a>
+
+</div>
+
+</div>
+
+
+<footer>
+<p>© 2026 Plant Store</p>
+</footer>
+
+
+</body>
+</html>

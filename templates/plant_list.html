@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Plant Store</h1>
+
+<form method="GET">
+
+<input type="text" name="q" placeholder="Search plants...">
+<button type="submit">Search</button>
+
+</form>
+
+<div class="plant-container">
+
+{% for plant in plants %}
+
+<a href="{% url 'plant_detail' plant.id %}">
+
+<div class="plant-card">
+
+<img src="{{ plant.image.url }}">
+
+<h3>{{ plant.name }}</h3>
+
+<p>₹{{ plant.price }}</p>
+
+<p>{{ plant.description }}</p>
+
+</div>
+
+</a>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

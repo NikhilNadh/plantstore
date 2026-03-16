@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="plant-detail">
+
+<div class="plant-top">
+
+<div class="plant-image">
+<img src="{{ plant.image.url }}">
+</div>
+
+<div class="plant-info">
+
+<h1>{{ plant.name }}</h1>
+
+<p class="plant-price">₹{{ plant.price }}</p>
+
+<p class="plant-description">
+{{ plant.description }}
+</p>
+
+</div>
+
+</div>
+
+
+<h2 class="section-title">Plant Care Guide</h2>
+
+{% if care %}
+
+<div class="care-box">
+
+<p><strong>Sunlight:</strong> {{ care.sunlight }}</p>
+
+<p><strong>Watering:</strong> {{ care.watering }}</p>
+
+<p><strong>Fertilizer:</strong> {{ care.fertilizer }}</p>
+
+</div>
+
+{% endif %}
+
+
+
+<h2 class="section-title">Reviews</h2>
+
+<div class="review-container">
+
+{% for review in reviews %}
+
+<div class="review-card">
+
+<p class="review-user">{{ review.user.username }}</p>
+
+<p class="review-rating">⭐ {{ review.rating }}/5</p>
+
+<p class="review-comment">{{ review.comment }}</p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+
+
+{% if user.is_authenticated %}
+
+<div class="review-form">
+
+<form method="POST">
+
+{% csrf_token %}
+
+<input type="number" name="rating" min="1" max="5" placeholder="Rating (1-5)">
+
+<textarea name="comment" placeholder="Write your review"></textarea>
+
+<button type="submit">Submit Review</button>
+
+</form>
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}
